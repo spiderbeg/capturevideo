@@ -1,8 +1,9 @@
 # Python 视频传输
 * 此教程介绍 Python 利用 OpenCV 调用摄像头获取数据并利用 socket 传输到局域网内另一台主机。
+* 更多实用而有趣的分析案例请关注：**Crossin的编程教室**
 ## 项目思路
-1. OpenCV 调用摄像头获取视频信息。
-2. socket 编程建立服务端客户端单连接模式；服务端使用 TCP 传输视频的每一帧图片信息到客户端，并在客户端播放视频。
+1. OpenCV 调用摄像头获取视频信息, 将获取的每一帧图片信息压缩为 jpg 格式，以字节发送给客户端。
+2. socket 编程建立服务端客户端单连接模式；服务端使用 TCP 传输视频的每一帧图片信息到客户端，并在客户端将接收到的信息转成 opencv 能够读取的格式并显示出来。
 ## 快速上手
 ### 项目下载
 确认放置项目的目录，运行以下命令：
@@ -32,8 +33,10 @@
 * opencv 安装，运行以下命令，
 
         pip install opencv-python
-* socket 简单知识，详见 host.py。
-* OpenCV 调用摄像头，详细见 oc.py。
+* socket 部分操作，详见 host.py。
+* OpenCV 调用摄像头操作，详细见 oc.py。
 * opencv-python 文档教程<https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_video_display/py_video_display.html>。
-
+## Crossin的编程教室
+* 更多实用而有趣的分析案例请关注：**Crossin的编程教室** <br>
+<img src="Crossin的编程教室.jpg" alt="Crossin的编程教室.jpg" height="200" width="200">   
  
