@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import socket
-import cv2
 import sys
 import time
+
+import cv2
+
 import settings # 导入配置文件
 
 # 1 单连接服务端端

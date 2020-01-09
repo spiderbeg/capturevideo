@@ -1,14 +1,12 @@
 # encoding: utf8
 import socket
-import asyncio
-import websockets
-import json
 import time
-import numpy as np
-import cv2
-import sys
 import threading
 import queue
+
+import cv2
+import numpy as np
+
 import settings
 
 # 1 单连接客户端多线程版本
