@@ -37,7 +37,7 @@
         # 服务端建立 tcp 类型的 socket
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             # 1 将socket和地址绑定，且socket未被绑定
-            # settings.HOST, settings.PORT 分别为服务端 IP 和 端口, 同下
+            # settings.HOST, settings.PORT 分别为服务端 IP 和 端口
             s.bind((settings.HOST, settings.PORT))
             # 2 允许服务端接收连接，参数 backlog 表示允许的连接数量
             s.listen()
@@ -54,7 +54,7 @@
 
         # 客户端连接服务端
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            # 连接服务端
+            # 连接服务端。settings.HOST, settings.PORT 分别为服务端 IP 和 端口
             s.connect((settings.HOST,settings.PORT))
 
             # 省略中间部分。。。
