@@ -45,7 +45,7 @@ def video():
 q = queue.Queue(maxsize=20)
 # 开启视频录制线程
 t = threading.Thread(target=receive)
-# 设置守护线程。当没有存活的非守护线程，程序退出。
+# 设置守护线程。
 # 服务端关闭连接时，退出
 t.daemon = True
 t.start()

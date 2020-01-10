@@ -18,7 +18,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     # 3 接受一个连接，socket 必须绑定一个地址，并监听连接
     # conn,address 
     # conn 是返回的能够发送和接受连接数据的新 socket 对象
-    # address 客户端地址（主机地址，端口号）
+    # addr 客户端地址（主机地址，端口号）
     conn, addr = s.accept()
     with conn:
         print('Connected by', addr)

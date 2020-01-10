@@ -30,6 +30,64 @@
 * guest.py: 客户端程序，接收来自服务端的视频信息，并播放。
 * settings.py: 程序的配置文件，服务端客户端都需要。若要在局域网内两台机子上测试，记得修改 host 为服务端 ip。
 * oc.py: OpenCV 调用摄像头的简单实例。
+## 部分代码展示
+以下为部分代码展示。完整示例见 host.py, guest.py, oc.py。
+* 服务端监听端口，并发送数据
+
+        # 服务端建立 tcp 类型的 socket
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            # 1 将socket和地址绑定，且socket未被绑定
+            # settings.HOST, settings.PORT 分别为服务端 IP 和 端口, 同下
+            s.bind((settings.HOST, settings.PORT))
+            # 2 允许服务端接收连接，参数 backlog 表示允许的连接数量
+            s.listen()
+            # 3 接受一个连接，socket 必须绑定一个地址，并监听连接
+            # 返回值：conn,address 
+            # conn 是返回的能够发送和接受连接数据的新 socket 对象
+            # addr 客户端地址（主机地址，端口号）
+            conn, addr = s.accept()
+
+            # 省略中间部分...
+            # 发送图片数据
+            conn.sendall(content2)
+* 客户端连接服务端, 并接收数据
+
+        # 客户端连接服务端
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            # 连接服务端
+            s.connect((settings.HOST,settings.PORT))
+
+            # 省略中间部分。。。
+            # 接收服务端发送的图片信息
+            data = s.recv(216800)
+* 服务端图片压缩
+
+        encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 80] # 压缩为 jpg，压缩等级好到坏（100-0）
+        # 4.2 逐帧获取图片
+        ret, frame = cap.read() # ret: 布尔值，表示是否读取正确；frame：图片信息，类型：numpy 数组 
+        # 4.3 获取图片数据并压缩为 jpg 格式
+        # 4.3.1 将 frame 压缩为 jpg 格式
+        success, encoded_image = cv2.imencode('.jpg', frame, encode_param)
+        # 4.3.2 转换为字节
+        content2 = encoded_image.tobytes()
+* 客户端获取图片信息，并转换为 opencv 可读格式
+
+        # 将字节数据转换为数组，用于 opencv 读取信息。
+        image = np.asarray(bytearray(data), dtype="uint8")
+        # 读取图片信息
+        image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+* 客户端程序中使用一个线程接收服务端发送的数据，一个线程将数据用 opencv 展示，以下为多线程使用的简单示例
+
+        import threading
+        import time
+        def go():
+            time.sleep(1)
+            print('这是新建线程')
+        # 创建线程
+        t = threading.Thread(target=go)
+        # 开始运行线程
+        t.start()
+        print('这是主线程 ')
 ## 部分建议
 * opencv 安装，运行以下命令，
 
